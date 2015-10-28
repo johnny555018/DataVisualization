@@ -29,14 +29,98 @@
 			var chartData7 = [];
 			
 			var ref = new Firebase('https://radiant-fire-7063.firebaseio.com/');
+			var cpcRef = new Firebase('https://cpcoil.firebaseio.com/');
+			var internationalRef = new Firebase('https://internationaloil.firebaseio.com/');
+			var allRef = new Firebase('https://oildata.firebaseio.com/');
 			var count = 0;
+			var cpcCount = 0;
+			var internationalCount = 0;
+			var allCount = 0;
 			var data = [];
 
 			function generateChartData() {
 				var firstDate = new Date();
 				firstDate.setDate(firstDate.getDate() - 500);
 				firstDate.setHours(0, 0, 0, 0);
-
+				
+				
+				allRef.orderByChild("price/date").on("child_added", function(snap) {
+					allCount++;
+					var temp = snap.val();
+					if(temp.price.type==1){//international
+						chartData5.push({
+							date: new Date(temp.price.date),
+							value: temp.price.WTI
+						});
+						chartData6.push({
+							date: new Date(temp.price.date),
+							value: temp.price.Brent
+						});
+						chartData7.push({
+							date: new Date(temp.price.date),
+							value: temp.price.Dubai
+						});
+					}else{//domestic
+						chartData1.push({
+							date: new Date(temp.price.date),
+							value: temp.price.ninetwo
+						});
+						chartData2.push({
+							date: new Date(temp.price.date),
+							value: temp.price.ninefive
+						});
+						chartData3.push({
+							date: new Date(temp.price.date),
+							value: temp.price.nineeight
+						});
+						chartData4.push({
+							date: new Date(temp.price.date),
+							value: temp.price.ultra
+						});
+					}
+				});
+				
+				/*
+				cpcRef.orderByKey().on("child_added", function(snap) {
+					cpcCount++;
+					var temp = snap.val();
+					chartData1.push({
+						date: new Date(temp.price.date),
+						value: temp.price.ninetwo
+					});
+					chartData2.push({
+						date: new Date(temp.price.date),
+						value: temp.price.ninefive
+					});
+					chartData3.push({
+						date: new Date(temp.price.date),
+						value: temp.price.nineeight
+					});
+					chartData4.push({
+						date: new Date(temp.price.date),
+						value: temp.price.ultra
+					});
+				});
+				
+				internationalRef.orderByKey().on("child_added", function(snap) {
+					internationalCount++;
+					var temp = snap.val();
+					chartData5.push({
+						date: new Date(temp.price.date),
+						value: temp.price.WTI
+					});
+					chartData6.push({
+						date: new Date(temp.price.date),
+						value: temp.price.Brent
+					});
+					chartData7.push({
+						date: new Date(temp.price.date),
+						value: temp.price.Dubai
+					});
+					
+				});
+				*/
+				/*
 				ref.orderByChild("price/date").on("child_added", function(snap) {
 					count++;
 					console.log("added", snap.key());
@@ -82,7 +166,7 @@
 					});
 					
 				});
-				
+				*/
 				/*
 				for (var i = 0; i < 50; i++) {
 					var newDate = new Date(firstDate);
@@ -315,14 +399,50 @@
 				dataSetSelector.position = "left";
 				chart.dataSetSelector = dataSetSelector;
 				
-				
+				/*
 				ref.once("value", function(snap) {
 					console.log("initial data loaded!", Object.keys(snap.val()).length === count);
 					//console.log(data);
 					chart.write('chartdiv');
 				});
+				*/
+				/*
+				cpcRef.once("value", function(snap) {
+					internationalRef.once("value", function(snap2){
+						chartData1.sort(function(a,b){
+							return a.date.getTime()-b.date.getTime;
+						});
+						chartData2.sort(function(a,b){
+							return a.date.getTime()-b.date.getTime;
+						});
+						chartData3.sort(function(a,b){
+							return a.date.getTime()-b.date.getTime;
+						});
+						chartData4.sort(function(a,b){
+							return a.date.getTime()-b.date.getTime;
+						});
+						chartData5.sort(function(a,b){
+							return a.date.getTime()-b.date.getTime;
+						});
+						chartData6.sort(function(a,b){
+							return a.date.getTime()-b.date.getTime;
+						});
+						chartData7.sort(function(a,b){
+							return a.date.getTime()-b.date.getTime;
+						});
+						
+					
+						chart.write('chartdiv');
+					});
+				});
+				*/
 				
-				
+				allRef.once("value", function(snap) {
+					console.log("initial data loaded!", Object.keys(snap.val()).length === allCount);
+					//console.log(data);
+					
+					chart.write('chartdiv');
+				});
 				
 				//chart.write('chartdiv');
 			}
