@@ -28,6 +28,8 @@
 			var chartData6 = [];
 			var chartData7 = [];
 			
+			var events = [] ;
+			
 			var ref = new Firebase('https://radiant-fire-7063.firebaseio.com/');
 			var cpcRef = new Firebase('https://cpcoil.firebaseio.com/');
 			var internationalRef = new Firebase('https://internationaloil.firebaseio.com/');
@@ -63,7 +65,7 @@
 							value: temp.price.Dubai,
 							volume: temp.price.Dubai
 						});
-					}else{//domestic
+					}else if(temp.price.type==0){//domestic
 						chartData1.push({
 							date: new Date(temp.price.date),
 							value: temp.price.ninetwo,
@@ -342,6 +344,7 @@
 				var stockPanel1 = new AmCharts.StockPanel();
 				stockPanel1.showCategoryAxis = false;
 				stockPanel1.title = "Value";
+				stockPanel1.eraseAll = false;
 				stockPanel1.percentHeight = 70;
 
 				// graph of first stock panel
@@ -363,7 +366,10 @@
 				var stockLegend1 = new AmCharts.StockLegend();
 				stockLegend1.periodValueTextComparing = "[[percents.value.close]]%";
 				stockLegend1.periodValueTextRegular = "[[value.close]]";
+				stockLegend1.valueTextRegular = " ";
+				stockLegend1.markerType = "none";
 				stockPanel1.stockLegend = stockLegend1;
+				stockPanel1.drawingIconsEnabled = true;
 
 				
 				// second stock panel
