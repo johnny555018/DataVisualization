@@ -50,32 +50,39 @@
 					if(temp.price.type==1){//international
 						chartData5.push({
 							date: new Date(temp.price.date),
-							value: temp.price.WTI
+							value: temp.price.WTI,
+							volume: temp.price.WTI
 						});
 						chartData6.push({
 							date: new Date(temp.price.date),
-							value: temp.price.Brent
+							value: temp.price.Brent,
+							volume: temp.price.Brent
 						});
 						chartData7.push({
 							date: new Date(temp.price.date),
-							value: temp.price.Dubai
+							value: temp.price.Dubai,
+							volume: temp.price.Dubai
 						});
 					}else{//domestic
 						chartData1.push({
 							date: new Date(temp.price.date),
-							value: temp.price.ninetwo
+							value: temp.price.ninetwo,
+							volume: temp.price.ninetwo
 						});
 						chartData2.push({
 							date: new Date(temp.price.date),
-							value: temp.price.ninefive
+							value: temp.price.ninefive,
+							volume: temp.price.ninefive
 						});
 						chartData3.push({
 							date: new Date(temp.price.date),
-							value: temp.price.nineeight
+							value: temp.price.nineeight,
+							volume: temp.price.nineeight
 						});
 						chartData4.push({
 							date: new Date(temp.price.date),
-							value: temp.price.ultra
+							value: temp.price.ultra,
+							volume: temp.price.ultra
 						});
 					}
 				});
@@ -244,6 +251,9 @@
 				dataSet1.fieldMappings = [{
 					fromField: "value",
 					toField: "value"
+				}, {
+					fromField: "volume",
+					toField: "volume"
 				}];
 				dataSet1.dataProvider = chartData1;
 				dataSet1.categoryField = "date";
@@ -253,6 +263,9 @@
 				dataSet2.fieldMappings = [{
 					fromField: "value",
 					toField: "value"
+				}, {
+					fromField: "volume",
+					toField: "volume"
 				}];
 				dataSet2.dataProvider = chartData2;
 				dataSet2.categoryField = "date";
@@ -262,6 +275,9 @@
 				dataSet3.fieldMappings = [{
 					fromField: "value",
 					toField: "value"
+				}, {
+					fromField: "volume",
+					toField: "volume"
 				}];
 				dataSet3.dataProvider = chartData3;
 				dataSet3.categoryField = "date";
@@ -271,6 +287,9 @@
 				dataSet4.fieldMappings = [{
 					fromField: "value",
 					toField: "value"
+				}, {
+					fromField: "volume",
+					toField: "volume"
 				}];
 				dataSet4.dataProvider = chartData4;
 				dataSet4.categoryField = "date";
@@ -280,6 +299,9 @@
 				dataSet5.fieldMappings = [{
 					fromField: "value",
 					toField: "value"
+				}, {
+					fromField: "volume",
+					toField: "volume"
 				}];
 				dataSet5.dataProvider = chartData5;
 				dataSet5.categoryField = "date";
@@ -289,6 +311,9 @@
 				dataSet6.fieldMappings = [{
 					fromField: "value",
 					toField: "value"
+				}, {
+					fromField: "volume",
+					toField: "volume"
 				}];
 				dataSet6.dataProvider = chartData6;
 				dataSet6.categoryField = "date";
@@ -298,6 +323,9 @@
 				dataSet7.fieldMappings = [{
 					fromField: "value",
 					toField: "value"
+				}, {
+					fromField: "volume",
+					toField: "volume"
 				}];
 				dataSet7.dataProvider = chartData7;
 				dataSet7.categoryField = "date";
@@ -337,7 +365,7 @@
 				stockLegend1.periodValueTextRegular = "[[value.close]]";
 				stockPanel1.stockLegend = stockLegend1;
 
-				/*
+				
 				// second stock panel
 				var stockPanel2 = new AmCharts.StockPanel();
 				stockPanel2.title = "Volume";
@@ -352,9 +380,9 @@
 				var stockLegend2 = new AmCharts.StockLegend();
 				stockLegend2.periodValueTextRegular = "[[value.close]]";
 				stockPanel2.stockLegend = stockLegend2;
-				*/
+				
 				// set panels to the chart
-				chart.panels = [stockPanel1/*, stockPanel2*/];
+				chart.panels = [stockPanel1, stockPanel2];
 
 
 				// OTHER SETTINGS ////////////////////////////////////
